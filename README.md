@@ -45,4 +45,11 @@
         <li> я залил свой код условно</li>
         <li> у вас свой код в файле есть на основе старого main</li>
 <li> вы свой код не зальёте просто так, вам нужно будет обновить main, Обновить свою ветку на основе main, совместить свой код с новым кодом в main и отправить pull request</li>
+    </ul></p>
+<div style="display: flex; justify-content: center;">
+    <p style="text-align: center;"><h4>Задачи</h4></p>
+    <ul style="list-style-type: circle;">
+        <li>Регистрация - Родион</li>
+        
     </ul>
+    
