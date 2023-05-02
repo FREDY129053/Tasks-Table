@@ -51,5 +51,5 @@
     <ul style="list-style-type: circle;">
         <li>Регистрация - Родион</li>
         
-    </ul>
+    
     
