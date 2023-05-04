@@ -16,19 +16,32 @@ from mysql.connector import connect
 
 class Main(QMainWindow):
     def __init__(self):
-        super().__init__()
+        super(Main, self).__init__()
+        loadUi("Users_Interfaces/main_window.ui", self)
 
-        self.resize(500, 500)
-        self.setWindowTitle("My App")
+        self.setWindowTitle("Main")
 
-        add_table_action = QAction("Добавить доску", self)
-        add_table_action.triggered.connect(self.add_table)
-
-        # Меню
-        menubar = self.menuBar()
-        file_menu = menubar.addMenu("File")
-        file_menu.addAction(add_table_action)
+        self.add_table_btn.clicked.connect(self.add_table)
 
     def add_table(self):
         self.main = add_table_window.AddTable()
         self.main.show()
+
+    # def __init__(self):
+    #     super().__init__()
+    #
+    #     self.resize(500, 500)
+    #     self.setWindowTitle("My App")
+    #
+    #     add_table_action = QAction("Добавить доску", self)
+    #     add_table_action.triggered.connect(self.add_table)
+    #
+    #     # Меню
+    #     menubar = self.menuBar()
+    #     file_menu = menubar.addMenu("File")
+    #     file_menu.addAction(add_table_action)
+    #
+    # def add_table(self):
+    #     self.main = add_table_window.AddTable()
+    #     self.main.show()
+
