@@ -15,6 +15,7 @@ from PyQt6.uic import loadUi
 from PyQt6.QtCore import QCoreApplication
 from mysql.connector import connect
 
+
 class signUp(QDialog):
     def __init__(self):
         super(signUp, self).__init__()
@@ -44,35 +45,48 @@ class signUp(QDialog):
         password = self.password.text()
         confirm_password = self.confirm_password.text()
 
-        # count_of_spec_symb = password.count('~', '!','@','#','$','%','^','&','*','(',')','+','`', ';',':','<','>','/','\\',''|',')
-        # print(count_of_spec_symb)
+        spec_symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '[', ']', '{', '}', '\\',
+                        '|', ';', ':', '\'', '\"', ',', '.', '<', '>', '/', '?']
+        count_of_spec_symbols = 0
+        number_list = [str(i) for i in range(0, 10)]
+        count_of_numbers = 0
+
+        for num in number_list:
+            if num in password:
+                count_of_numbers += 1
+
+        for char in spec_symbols:
+            if char in password:
+                count_of_spec_symbols += 1
 
         # роверка на пустоту
         # if username == "" or password == "" or confirm_password == "":
         #     self.status.setText("Заполните все поля!")
-        if compare_digest(password, confirm_password):
-            db_config = {
-                "user": "me",
-                "password": "password",
-                "host": "193.124.118.138",
-                "database": "task_table",
-            }
-            database = mysql.connector.connect(**db_config)
-            cursor = database.cursor(buffered=True)
+        if (count_of_numbers > 0 or count_of_spec_symbols > 0) and len(password) >= 4:
+            if compare_digest(password, confirm_password):
+                db_config = {
+                    "user": "me",
+                    "password": "password",
+                    "host": "193.124.118.138",
+                    "database": "task_table",
+                }
+                database = mysql.connector.connect(**db_config)
+                cursor = database.cursor(buffered=True)
 
-            cursor.execute(f"SELECT * FROM users WHERE login='{username}'")
-            info = cursor.fetchall()
+                cursor.execute(f"SELECT * FROM users WHERE login='{username}'")
+                info = cursor.fetchall()
 
-            if len(info) == 0:
-                cursor.execute(f"INSERT INTO users(login, password) VALUES('{username}', '{password}')")
-                database.commit()
-
-                self.main = main_window.Main()
-                self.main.show()
+                if len(info) == 0:
+                    cursor.execute(f"INSERT INTO users(login, password) VALUES('{username}', '{password}')")
+                    database.commit()
+                    self.main = main_window.Main()
+                    self.main.show()
+                else:
+                    self.status.setText("Данное имя занято!")
             else:
-                self.status.setText("Данное имя занято!")
+                self.status.setText("Пароли не совпадают!")
         else:
-            self.status.setText("Пароли не совпадают!")
+            self.status.setText("Пароль не надёжен!\nИспользуйте цифры/спец. символы")
 
     def log_in(self):
         self.close()

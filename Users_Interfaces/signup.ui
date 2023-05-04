@@ -116,13 +116,19 @@ background-color: rgb(196, 255, 171);</string>
    <property name="cursor">
     <cursorShape>IBeamCursor</cursorShape>
    </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="placeholderText">
+    <string/>
+   </property>
   </widget>
   <widget class="QLineEdit" name="password">
    <property name="geometry">
     <rect>
      <x>150</x>
      <y>220</y>
-     <width>171</width>
+     <width>181</width>
      <height>31</height>
     </rect>
    </property>
@@ -130,6 +136,9 @@ background-color: rgb(196, 255, 171);</string>
     <font>
      <pointsize>13</pointsize>
     </font>
+   </property>
+   <property name="placeholderText">
+    <string>Минимум 4 символа</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="confirm_password">
@@ -184,10 +193,10 @@ background-color: rgb(196, 255, 171);</string>
   <widget class="QLabel" name="status">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>360</y>
-     <width>201</width>
-     <height>16</height>
+     <x>60</x>
+     <y>339</y>
+     <width>321</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="styleSheet">
