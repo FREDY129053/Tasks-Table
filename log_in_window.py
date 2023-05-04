@@ -19,7 +19,7 @@ from mysql.connector import connect
 class logIn(QDialog):
     def __init__(self):
         super(logIn, self).__init__()
-        loadUi("login.ui", self)
+        loadUi("Users_Interfaces/login.ui", self)
         self.setWindowTitle("Вход/Регистрация")
 
         # кнопка перехода в окно "РЕГИСТРАЦИЯ"
