@@ -1,5 +1,6 @@
 import log_in_window
 import main_window
+import user
 
 import sys
 import mysql
@@ -79,6 +80,10 @@ class signUp(QDialog):
                 if len(info) == 0:
                     cursor.execute(f"INSERT INTO users(login, password) VALUES('{username}', '{password}')")
                     database.commit()
+
+                    # текущий пользователь
+                    current_user = user.User(username, password)
+
                     self.main = main_window.Main()
                     self.main.show()
                 else:

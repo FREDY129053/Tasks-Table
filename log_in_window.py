@@ -1,5 +1,6 @@
 import sign_up_window
 import main_window
+import user
 
 import sys
 import mysql
@@ -61,9 +62,12 @@ class logIn(QDialog):
                 self.status.setText("Wrong password!")
             else:
                 self.close()
+
+                # текущий пользователь
+                current_user = user.User(username, password)
+
                 self.main = main_window.Main()
                 self.main.show()
-
 
     def show_pass(self):
         echo_mode = self.password.echoMode()

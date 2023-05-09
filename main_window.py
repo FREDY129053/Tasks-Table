@@ -27,21 +27,4 @@ class Main(QMainWindow):
         self.main = add_table_window.AddTable()
         self.main.show()
 
-    # def __init__(self):
-    #     super().__init__()
-    #
-    #     self.resize(500, 500)
-    #     self.setWindowTitle("My App")
-    #
-    #     add_table_action = QAction("Добавить доску", self)
-    #     add_table_action.triggered.connect(self.add_table)
-    #
-    #     # Меню
-    #     menubar = self.menuBar()
-    #     file_menu = menubar.addMenu("File")
-    #     file_menu.addAction(add_table_action)
-    #
-    # def add_table(self):
-    #     self.main = add_table_window.AddTable()
-    #     self.main.show()
 
