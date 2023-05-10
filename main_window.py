@@ -14,6 +14,7 @@ from PyQt6.uic import loadUi
 from PyQt6.QtCore import QCoreApplication
 from mysql.connector import connect
 
+
 class Main(QMainWindow):
     def __init__(self):
         super(Main, self).__init__()
@@ -26,5 +27,3 @@ class Main(QMainWindow):
     def add_table(self):
         self.main = add_table_window.AddTable()
         self.main.show()
-
-

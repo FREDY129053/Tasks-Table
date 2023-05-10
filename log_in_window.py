@@ -1,6 +1,7 @@
 import sign_up_window
 import main_window
-import user
+import other_classes
+import add_table_window
 
 import sys
 import mysql
@@ -42,6 +43,7 @@ class logIn(QDialog):
     def log_in(self):
         username = self.username.text()
         password = self.password.text()
+        global current_user
 
         db_config = {
             "user": "me",
@@ -64,7 +66,8 @@ class logIn(QDialog):
                 self.close()
 
                 # текущий пользователь
-                current_user = user.User(username, password)
+                global current_user
+                current_user = other_classes.User(username, password)
 
                 self.main = main_window.Main()
                 self.main.show()
@@ -78,3 +81,7 @@ class logIn(QDialog):
         else:
             self.show_hide_pass_btn.setText("🐵")
             self.password.setEchoMode(QLineEdit.EchoMode.Normal)
+
+# функция, которая возвращает текущего пользователя
+def curr():
+    return current_user
