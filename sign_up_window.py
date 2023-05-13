@@ -1,8 +1,9 @@
 import log_in_window
 import main_window
-import user
+import other_classes
 
 import sys
+import time
 import mysql
 
 from secrets import compare_digest
@@ -16,7 +17,7 @@ from PyQt6.uic import loadUi
 from PyQt6.QtCore import QCoreApplication
 from mysql.connector import connect
 
-
+current_user = None
 class signUp(QDialog):
     def __init__(self):
         super(signUp, self).__init__()
@@ -82,8 +83,10 @@ class signUp(QDialog):
                     database.commit()
 
                     # текущий пользователь
-                    current_user = user.User(username, password)
+                    global current_user
+                    current_user = other_classes.User(username, password)
 
+                    self.close()
                     self.main = main_window.Main()
                     self.main.show()
                 else:
@@ -117,3 +120,11 @@ class signUp(QDialog):
         else:
             self.show_hide_pass_btn_2.setText("🐵")
             self.confirm_password.setEchoMode(QLineEdit.EchoMode.Normal)
+
+# функция, которая возвращает текущего пользователя
+def curr():
+    if not hasattr(other_classes.User, '__name__'):
+        return None
+    else:
+        return current_user
+

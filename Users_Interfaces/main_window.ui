@@ -20,10 +20,10 @@
    <widget class="QPushButton" name="add_table_btn">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>500</y>
-      <width>131</width>
-      <height>51</height>
+      <x>660</x>
+      <y>20</y>
+      <width>121</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -33,6 +33,63 @@
      <string>➕ Добавить доску</string>
     </property>
    </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>100</y>
+      <width>681</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="rowCount">
+     <number>0</number>
+    </property>
+    <property name="columnCount">
+     <number>3</number>
+    </property>
+    <column>
+     <property name="text">
+      <string>Надо сделать</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>В процессе</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Готово!</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QScrollArea" name="scrollArea">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>781</width>
+      <height>501</height>
+     </rect>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>779</width>
+       <height>499</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <zorder>tableWidget</zorder>
+   <zorder>scrollArea</zorder>
+   <zorder>add_table_btn</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
