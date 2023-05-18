@@ -52,6 +52,7 @@ class Main(QMainWindow):
         empty_widget = QLabel()
         empty_widget.setFixedSize(100, 10)
         print("Hello! TEst rules")
+        print("Hfddfsdf")
         cursor.execute("SELECT * FROM tables")
         tables = cursor.fetchall()
         print(tables)
