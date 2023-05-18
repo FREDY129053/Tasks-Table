@@ -51,7 +51,7 @@ class Main(QMainWindow):
         # виджет-пустышка для добавления в конец, чтобы место занимал
         empty_widget = QLabel()
         empty_widget.setFixedSize(100, 10)
-
+        print("Hello! TEst rules")
         cursor.execute("SELECT * FROM tables")
         tables = cursor.fetchall()
         print(tables)
