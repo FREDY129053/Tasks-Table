@@ -15,15 +15,15 @@ from PyQt6.uic import loadUi
 from PyQt6.QtCore import QCoreApplication
 from mysql.connector import connect
 
-
 db_config = {
-            "user": "me",
-            "password": "password",
-            "host": "193.124.118.138",
-            "database": "task_table",
-        }
+    "user": "me",
+    "password": "password",
+    "host": "193.124.118.138",
+    "database": "task_table",
+}
 database = mysql.connector.connect(**db_config)
 cursor = database.cursor(buffered=True)
+
 
 class Main(QMainWindow):
     def __init__(self):
@@ -38,30 +38,34 @@ class Main(QMainWindow):
         btn = self.findChild(QPushButton, 'add_table_btn')
         self.add_table_btn.clicked.connect(self.add_table)
 
-        table_btn = self.findChild(QPushButton, 'table_name')
-        scroll_area = self.findChild(QScrollArea, 'scrollArea')
+        self.scroll_area = self.findChild(QScrollArea, 'scrollArea')
 
-        parent = scroll_area.parentWidget()
+        parent = self.scroll_area.parentWidget()
         btn.move(650, 513)
         btn.setParent(parent)
 
+        # def add_tables_buttons(self):
         scroll_layout = QGridLayout()
         scroll_widget = QWidget()
 
         # виджет-пустышка для добавления в конец, чтобы место занимал
         empty_widget = QLabel()
         empty_widget.setFixedSize(100, 10)
-        print("Hello! TEst rules")
-        print("Hfddfsdf")
+
+        database.commit()
         cursor.execute("SELECT * FROM tables")
         tables = cursor.fetchall()
         print(tables)
 
+        self.buttons = []
         for i in range(len(tables)):
             new = QPushButton()
+            print(tables[i][1])
             new.setText(f"{tables[i][1]}")
+            new.setObjectName(f"{tables[i][1]}")
             new.setFixedWidth(250)
             new.setFixedHeight(80)
+            self.buttons.append(new)
 
             scroll_layout.addWidget(new, i // 2, i % 2)
 
@@ -69,12 +73,52 @@ class Main(QMainWindow):
                 scroll_layout.addWidget(empty_widget)
 
             scroll_widget.setLayout(scroll_layout)
-            scroll_area.setWidget(scroll_widget)
+            self.scroll_area.setWidget(scroll_widget)
 
+        for i, button in enumerate(self.buttons):
+            button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
 
     def update_window(self):
-        self.close()
-        self.show()
+        self.scroll_area.takeWidget()
+
+        scroll_layout = QGridLayout()
+        scroll_widget = QWidget()
+
+        # виджет-пустышка для добавления в конец, чтобы место занимал
+        empty_widget = QLabel()
+        empty_widget.setFixedSize(100, 10)
+
+        database.commit()
+        cursor.execute("SELECT * FROM tables")
+        tables = cursor.fetchall()
+        print(tables)
+
+        self.buttons = []
+        for i in range(len(tables)):
+            new = QPushButton()
+            print(tables[i][1])
+            new.setText(f"{tables[i][1]}")
+            new.setObjectName(f"{tables[i][1]}")
+            new.setFixedWidth(250)
+            new.setFixedHeight(80)
+            self.buttons.append(new)
+
+            scroll_layout.addWidget(new, i // 2, i % 2)
+
+            if i + 1 >= len(tables):
+                scroll_layout.addWidget(empty_widget)
+
+            scroll_widget.setLayout(scroll_layout)
+            self.scroll_area.setWidget(scroll_widget)
+
+        for i, button in enumerate(self.buttons):
+            button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
+            
+    def show_window(self, title):
+        self.new_window = QWidget()
+        self.new_window.setWindowTitle(f"{title.sender().objectName()}")
+
+        self.new_window.show()
 
     # заполнение таблицы данными
     def load_data(self, table):

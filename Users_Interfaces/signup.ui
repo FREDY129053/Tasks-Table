@@ -241,6 +241,8 @@ font-weight: 400;
 font-size: 11px;
 line-height: 13px;
 
+border-color: 0;
+
 
 background-color: transparent;</string>
     </property>
@@ -264,6 +266,7 @@ font-weight: 400;
 font-size: 11px;
 line-height: 13px;
 
+border-color: 0;
 
 background-color: transparent;</string>
     </property>
@@ -337,8 +340,12 @@ font-weight: 400;
 font-size: 11px;
 line-height: 13px;
 
+border: none;
+
 color: #B1343C;
-background-color: #fff;</string>
+background-color: #fff;
+
+border-color: 0;</string>
     </property>
     <property name="text">
      <string/>
