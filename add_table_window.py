@@ -30,6 +30,7 @@ class AddTable(QWidget):
         self.add_table_btn.clicked.connect(self.add_table)
 
     def add_table(self):
+        global is_wrong_coauthor
         db_config = {
             "user": "me",
             "password": "password",
@@ -45,8 +46,8 @@ class AddTable(QWidget):
 
         # 1 - приватная, 0 - публичная
         table_type = 0 if str(self.table_type.checkState()) == str(Qt.CheckState.Unchecked) else 1
-        #size = self.size_of_table.text()
-        #columns_name = self.columns_name.text()
+        # size = self.size_of_table.text()
+        # columns_name = self.columns_name.text()
 
         # Проверка на наличие введенных соавторов в бд
         if len(coauthors) == 0:
@@ -63,7 +64,7 @@ class AddTable(QWidget):
         if len(table_name) == 0:
             self.status.setText("Введите название доски")
         elif is_wrong_coauthor is False:
-            #table = other_classes.Table(table_name, author.username, self.coauthors.text(), table_type, size, columns_name)
+            # table = other_classes.Table(table_name, author.username, self.coauthors.text(), table_type, size, columns_name)
             coauthors_str = " ".join(coauthors)
             cursor.execute(f"INSERT INTO tables (table_name, author_login, coauthors_login, table_type)"
                            f"VALUES ('{table_name}', '{author.username}', '{coauthors_str}', '{table_type}')")
