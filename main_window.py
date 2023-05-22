@@ -7,13 +7,15 @@ from secrets import compare_digest
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import (QApplication, QWidget, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QSizePolicy,
                              QMainWindow, QGridLayout, QLabel, QStatusBar, QCheckBox, QDialog, QStackedWidget,
-                             QTableWidget, QScrollArea, QSpacerItem, QMenu
+                             QTableWidget, QScrollArea, QSpacerItem, QMenu, QTableWidgetItem
                              )
 from PyQt6.QtCore import Qt
 from PyQt6 import QtWidgets
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import QCoreApplication
 from mysql.connector import connect
+
+import foreach_table_window
 
 db_config = {
     "user": "me",
@@ -32,7 +34,7 @@ class Main(QMainWindow):
 
         self.setWindowTitle("Main")
 
-        self.update_as = self.findChild(QAction, 'update_act')
+        self.update_as = self.findChild(QAction, 'update_act_2')
         self.update_as.triggered.connect(self.update_window)
 
         btn = self.findChild(QPushButton, 'add_table_btn')
@@ -41,7 +43,7 @@ class Main(QMainWindow):
         self.scroll_area = self.findChild(QScrollArea, 'scrollArea')
 
         parent = self.scroll_area.parentWidget()
-        btn.move(650, 513)
+        btn.move(650, 460)
         btn.setParent(parent)
 
         # def add_tables_buttons(self):
@@ -55,12 +57,22 @@ class Main(QMainWindow):
         database.commit()
         cursor.execute("SELECT * FROM tables")
         tables = cursor.fetchall()
-        print(tables)
+        # print(tables)
 
         self.buttons = []
         for i in range(len(tables)):
             new = QPushButton()
-            print(tables[i][1])
+
+            new.setStyleSheet("""
+            background-color: rgb(255, 255, 255);
+            border-radius: 10px;
+            border-width: 2px 2px 2px 2px;
+            border-style: solid;
+            border-color: #6757A5;
+            font: 600 13px "Work Sans";
+            """)
+
+            # print(tables[i][1])
             new.setText(f"{tables[i][1]}")
             new.setObjectName(f"{tables[i][1]}")
             new.setFixedWidth(250)
@@ -91,12 +103,22 @@ class Main(QMainWindow):
         database.commit()
         cursor.execute("SELECT * FROM tables")
         tables = cursor.fetchall()
-        print(tables)
+        # print(tables)
 
         self.buttons = []
         for i in range(len(tables)):
             new = QPushButton()
-            print(tables[i][1])
+
+            new.setStyleSheet("""
+                    background-color: rgb(255, 255, 255);
+                    border-radius: 10px;
+                    border-width: 2px 2px 2px 2px;
+                    border-style: solid;
+                    border-color: #6757A5;
+                    font: 600 13px "Work Sans";
+                    """)
+
+            # print(tables[i][1])
             new.setText(f"{tables[i][1]}")
             new.setObjectName(f"{tables[i][1]}")
             new.setFixedWidth(250)
@@ -113,12 +135,48 @@ class Main(QMainWindow):
 
         for i, button in enumerate(self.buttons):
             button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
-            
+
     def show_window(self, title):
+        # self.new_window = foreach_table_window.EachTable()
         self.new_window = QWidget()
+        self.new_window.setFixedSize(617, 440)
         self.new_window.setWindowTitle(f"{title.sender().objectName()}")
 
+        layout = QVBoxLayout()
+
+        # кнопка добавления столбца
+        add_column_btn = QPushButton()
+        add_column_btn.setFixedSize(120, 25)
+        add_column_btn.setText("+ Добавить столбец")
+        add_column_btn.clicked.connect(self.add_column)
+
+        layout.addWidget(add_column_btn)
+        add_column_btn.move(0, 0)
+
+        # добавление таблицы
+        table = QTableWidget()
+        table.setFixedSize(590, 370)
+
+        cursor.execute(f"SELECT size_of_table FROM tables WHERE table_name = '{self.new_window.windowTitle()}'")
+        count_of_columns = cursor.fetchone()[0]
+        print(count_of_columns)
+
+        for i in range(count_of_columns):
+            table.insertColumn(i)
+            header_item = QTableWidgetItem(f"Новый столбец {i + 1}")
+            table.setHorizontalHeaderLabels(i, header_item)
+        table.setColumnCount(count_of_columns)
+
+
+        layout.addWidget(table)
+        self.new_window.setLayout(layout)
+        table.move(15, 80)
+
         self.new_window.show()
+
+    def add_column(self):
+        cursor.execute(f"UPDATE tables SET size_of_table = size_of_table + 1 WHERE table_name = '{self.windowTitle()}'")
+        database.commit()
 
     # заполнение таблицы данными
     def load_data(self, table):
