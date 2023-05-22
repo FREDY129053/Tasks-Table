@@ -433,7 +433,8 @@ font-size: 15px;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: qlineargradient( x1:0, y1:0, x2:1, y2:0, stop:0 #3C288C, stop:1 #6757A5);
+     <string notr="true">
+background-color: qlineargradient( x1:0, y1:0, x2:1, y2:0, stop:0 #3C288C, stop:1 #6757A5);
 	border: 1px solid #55439B;
 	border-radius: 10px;
 
@@ -444,7 +445,8 @@ font-size: 15px;
 	line-height: 13px;
 
 	color: #FFFFFF;
-	transition: background-color 0.3s linear;</string>
+	transition: background-color 0.3s linear;
+</string>
     </property>
     <property name="text">
      <string>ВОЙТИ</string>

@@ -66,7 +66,7 @@ class AddTable(QWidget):
         elif is_wrong_coauthor is False:
             # table = other_classes.Table(table_name, author.username, self.coauthors.text(), table_type, size, columns_name)
             coauthors_str = " ".join(coauthors)
-            cursor.execute(f"INSERT INTO tables (table_name, author_login, coauthors_login, table_type)"
-                           f"VALUES ('{table_name}', '{author.username}', '{coauthors_str}', '{table_type}')")
+            cursor.execute(f"INSERT INTO tables (table_name, author_login, coauthors_login, table_type, size_of_table)"
+                           f"VALUES ('{table_name}', '{author.username}', '{coauthors_str}', '{table_type}', 0)")
             database.commit()
             self.close()
