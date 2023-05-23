@@ -137,46 +137,12 @@ class Main(QMainWindow):
             button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
 
     def show_window(self, title):
-        # self.new_window = foreach_table_window.EachTable()
         self.new_window = QWidget()
-        self.new_window.setFixedSize(617, 440)
+
         self.new_window.setWindowTitle(f"{title.sender().objectName()}")
+        self.window = foreach_table_window.EachTable(self.new_window.windowTitle())
 
-        layout = QVBoxLayout()
-
-        # кнопка добавления столбца
-        add_column_btn = QPushButton()
-        add_column_btn.setFixedSize(120, 25)
-        add_column_btn.setText("+ Добавить столбец")
-        add_column_btn.clicked.connect(self.add_column)
-
-        layout.addWidget(add_column_btn)
-        add_column_btn.move(0, 0)
-
-        # добавление таблицы
-        table = QTableWidget()
-        table.setFixedSize(590, 370)
-
-        cursor.execute(f"SELECT size_of_table FROM tables WHERE table_name = '{self.new_window.windowTitle()}'")
-        count_of_columns = cursor.fetchone()[0]
-        print(count_of_columns)
-
-        for i in range(count_of_columns):
-            table.insertColumn(i)
-            header_item = QTableWidgetItem(f"Новый столбец {i + 1}")
-            table.setHorizontalHeaderLabels(i, header_item)
-        table.setColumnCount(count_of_columns)
-
-
-        layout.addWidget(table)
-        self.new_window.setLayout(layout)
-        table.move(15, 80)
-
-        self.new_window.show()
-
-    def add_column(self):
-        cursor.execute(f"UPDATE tables SET size_of_table = size_of_table + 1 WHERE table_name = '{self.windowTitle()}'")
-        database.commit()
+        self.window.show()
 
     # заполнение таблицы данными
     def load_data(self, table):
