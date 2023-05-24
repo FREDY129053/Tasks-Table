@@ -359,6 +359,19 @@ border-right: 2px solid #3C288C;
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QPushButton" name="add_coauthors_button">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>330</y>
+     <width>121</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Добавить соавторов</string>
+   </property>
+  </widget>
   <zorder>lineEdit_3</zorder>
   <zorder>tableWidget</zorder>
   <zorder>lineEdit_2</zorder>
@@ -370,6 +383,7 @@ border-right: 2px solid #3C288C;
   <zorder>pushButton_2</zorder>
   <zorder>label_4</zorder>
   <zorder>label_5</zorder>
+  <zorder>add_coauthors_button</zorder>
  </widget>
  <resources/>
  <connections/>

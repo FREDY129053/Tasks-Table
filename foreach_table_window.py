@@ -1,5 +1,7 @@
 import sys
 import mysql
+
+import add_coauthors_window
 import other_classes
 
 # эти два класса ВАЖНЫ, иначе сломается (хз почему)
@@ -36,6 +38,9 @@ class EachTable(QWidget):
         super(EachTable, self).__init__()
         loadUi("Users_Interfaces/tables_widget.ui", self)
         self.setWindowTitle(window_title)
+        global window_name
+        window_name = self.windowTitle()
+        self.add_coauthors_button.clicked.connect(self.add_coauthors)
 
         name = self.findChild(QLabel, 'label_2')
         author = self.findChild(QLabel, 'label')
@@ -62,3 +67,10 @@ class EachTable(QWidget):
     def add_column(self):
         cursor.execute(f"UPDATE tables SET size_of_table = size_of_table + 1 WHERE table_name = '{self.windowTitle()}'")
         database.commit()
+
+    def add_coauthors(self):
+        self.coauthors = add_coauthors_window.AddCoauthors()
+        self.coauthors.show()
+
+def curr():
+    return window_name
