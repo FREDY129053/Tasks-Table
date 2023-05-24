@@ -232,6 +232,13 @@ font: 600 13px &quot;Work Sans&quot;;</string>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
+    <property name="styleSheet">
+     <string notr="true">color: #6757A5;
+background-color: #F5FFFA;
+
+QMenu::item:hover { color: #333333; }
+</string>
+    </property>
     <property name="title">
      <string>Профиль</string>
     </property>
@@ -240,15 +247,16 @@ font: 600 13px &quot;Work Sans&quot;;</string>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
-     <string>Мои доски</string>
+     <string>Доски</string>
     </property>
-    <addaction name="action_3"/>
-    <addaction name="action_4"/>
+    <addaction name="my_desks"/>
+    <addaction name="action_5"/>
+    <addaction name="action_6"/>
+    <addaction name="action_7"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
     <string>toolBar</string>
@@ -263,7 +271,7 @@ font: 600 13px &quot;Work Sans&quot;;</string>
   </widget>
   <action name="action">
    <property name="text">
-    <string>Изсенить пароль</string>
+    <string>Изменить пароль</string>
    </property>
   </action>
   <action name="action_2">
@@ -271,9 +279,9 @@ font: 600 13px &quot;Work Sans&quot;;</string>
     <string>Изменить логин</string>
    </property>
   </action>
-  <action name="action_3">
+  <action name="my_desks">
    <property name="text">
-    <string>Мои личные доски</string>
+    <string>Мои доски</string>
    </property>
   </action>
   <action name="action_4">
@@ -293,6 +301,26 @@ font: 600 13px &quot;Work Sans&quot;;</string>
   <action name="update_act">
    <property name="text">
     <string>Обновить</string>
+   </property>
+  </action>
+  <action name="actionTest">
+   <property name="text">
+    <string>Test</string>
+   </property>
+  </action>
+  <action name="action_5">
+   <property name="text">
+    <string>Мои приватные доски</string>
+   </property>
+  </action>
+  <action name="action_6">
+   <property name="text">
+    <string>Соавторство в досках</string>
+   </property>
+  </action>
+  <action name="action_7">
+   <property name="text">
+    <string>Публичные доски</string>
    </property>
   </action>
  </widget>

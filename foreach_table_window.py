@@ -43,7 +43,7 @@ class EachTable(QWidget):
         self.add_coauthors_button.clicked.connect(self.add_coauthors)
 
         name = self.findChild(QLabel, 'label_2')
-        author = self.findChild(QLabel, 'label')
+        author = self.findChild(QLabel, 'author_name')
         coauthor = self.findChild(QLabel, 'label_3')
 
         name.setText(self.windowTitle())

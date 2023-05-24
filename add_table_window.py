@@ -40,14 +40,12 @@ class AddTable(QWidget):
         database = mysql.connector.connect(**db_config)
         cursor = database.cursor(buffered=True)
 
-        table_name = self.table_name.text()
+        table_name = self.name.text()
         author = sign_up_window.curr() if sign_up_window.curr() is not None else log_in_window.curr()
         coauthors = self.coauthors.text().split(', ')
 
         # 1 - приватная, 0 - публичная
         table_type = 0 if str(self.table_type.checkState()) == str(Qt.CheckState.Unchecked) else 1
-        # size = self.size_of_table.text()
-        # columns_name = self.columns_name.text()
 
         # Проверка на наличие введенных соавторов в бд
         if len(coauthors) == 0:
@@ -70,4 +68,3 @@ class AddTable(QWidget):
                            f"VALUES ('{table_name}', '{author.username}', '{coauthors_str}', '{table_type}', 0)")
             database.commit()
             self.close()
-print("TEST")
