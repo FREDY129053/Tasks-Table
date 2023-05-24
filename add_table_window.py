@@ -70,3 +70,4 @@ class AddTable(QWidget):
                            f"VALUES ('{table_name}', '{author.username}', '{coauthors_str}', '{table_type}', 0)")
             database.commit()
             self.close()
+print("TEST")
