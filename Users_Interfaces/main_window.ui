@@ -250,9 +250,9 @@ QMenu::item:hover { color: #333333; }
      <string>Доски</string>
     </property>
     <addaction name="my_desks"/>
-    <addaction name="action_5"/>
-    <addaction name="action_6"/>
-    <addaction name="action_7"/>
+    <addaction name="my_private_desks"/>
+    <addaction name="me_coauthor"/>
+    <addaction name="public_desks"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -308,17 +308,17 @@ QMenu::item:hover { color: #333333; }
     <string>Test</string>
    </property>
   </action>
-  <action name="action_5">
+  <action name="my_private_desks">
    <property name="text">
     <string>Мои приватные доски</string>
    </property>
   </action>
-  <action name="action_6">
+  <action name="me_coauthor">
    <property name="text">
     <string>Соавторство в досках</string>
    </property>
   </action>
-  <action name="action_7">
+  <action name="public_desks">
    <property name="text">
     <string>Публичные доски</string>
    </property>
