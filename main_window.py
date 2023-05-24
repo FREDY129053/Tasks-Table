@@ -27,11 +27,12 @@ db_config = {
 database = mysql.connector.connect(**db_config)
 cursor = database.cursor(buffered=True)
 
-
 class Main(QMainWindow):
     def __init__(self):
         super(Main, self).__init__()
         loadUi("Users_Interfaces/main_window.ui", self)
+
+        global current_window
 
         self.setWindowTitle("Main")
 
@@ -50,8 +51,19 @@ class Main(QMainWindow):
         self.my_desks = self.findChild(QAction, 'my_desks')
         self.my_desks.triggered.connect(self.show_my_desks)
 
+        self.my_private_desks = self.findChild(QAction, 'my_private_desks')
+        self.my_private_desks.triggered.connect(self.show_my_private_desks)
+
+        self.me_coauthor = self.findChild(QAction, 'me_coauthor')
+        self.me_coauthor.triggered.connect(self.show_where_me_coauthor)
+
+        self.public_desks = self.findChild(QAction, 'public_desks')
+        self.public_desks.triggered.connect(self.update_window)
+
         self.update_as = self.findChild(QAction, 'update_act_2')
+
         self.update_as.triggered.connect(self.update_window)
+
 
         btn = self.findChild(QPushButton, 'add_table_btn')
         self.add_table_btn.clicked.connect(self.add_table)
@@ -71,7 +83,7 @@ class Main(QMainWindow):
         empty_widget.setFixedSize(100, 10)
 
         database.commit()
-        cursor.execute("SELECT * FROM tables")
+        cursor.execute("SELECT * FROM tables WHERE table_type = 0")
         tables = cursor.fetchall()
         # print(tables)
 
@@ -106,6 +118,8 @@ class Main(QMainWindow):
             button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
 
     def update_window(self):
+        self.update_as.triggered.connect(self.update_window)
+
         self.scroll_area.takeWidget()
 
         scroll_layout = QGridLayout()
@@ -116,7 +130,7 @@ class Main(QMainWindow):
         empty_widget.setFixedSize(100, 10)
 
         database.commit()
-        cursor.execute("SELECT * FROM tables")
+        cursor.execute("SELECT * FROM tables WHERE table_type = 0")
         tables = cursor.fetchall()
         # print(tables)
 
@@ -152,6 +166,8 @@ class Main(QMainWindow):
             button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
 
     def show_my_desks(self):
+        self.update_as.triggered.connect(self.show_my_desks)
+
         self.scroll_area.takeWidget()
 
         scroll_layout = QGridLayout()
@@ -164,6 +180,102 @@ class Main(QMainWindow):
         database.commit()
         author = sign_up_window.curr() if sign_up_window.curr() is not None else log_in_window.curr()
         cursor.execute(f"SELECT * FROM tables WHERE author_login = '{author.username}'")
+        tables = cursor.fetchall()
+
+        self.buttons = []
+        for i in range(len(tables)):
+            new = QPushButton()
+
+            new.setStyleSheet("""
+                            background-color: rgb(255, 255, 255);
+                            border-radius: 10px;
+                            border-width: 2px 2px 2px 2px;
+                            border-style: solid;
+                            border-color: #6757A5;
+                            font: 600 13px "Work Sans";
+                            """)
+
+            # print(tables[i][1])
+            new.setText(f"{tables[i][1]}")
+            new.setObjectName(f"{tables[i][1]}")
+            new.setFixedWidth(250)
+            new.setFixedHeight(80)
+            self.buttons.append(new)
+
+            scroll_layout.addWidget(new, i // 2, i % 2)
+
+            if i + 1 >= len(tables):
+                scroll_layout.addWidget(empty_widget)
+
+            scroll_widget.setLayout(scroll_layout)
+            self.scroll_area.setWidget(scroll_widget)
+
+        for i, button in enumerate(self.buttons):
+            button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
+
+    def show_my_private_desks(self):
+        self.update_as.triggered.connect(self.show_my_private_desks)
+
+        self.scroll_area.takeWidget()
+
+        scroll_layout = QGridLayout()
+        scroll_widget = QWidget()
+
+        # виджет-пустышка для добавления в конец, чтобы место занимал
+        empty_widget = QLabel()
+        empty_widget.setFixedSize(100, 10)
+
+        database.commit()
+        author = sign_up_window.curr() if sign_up_window.curr() is not None else log_in_window.curr()
+        cursor.execute(f"SELECT * FROM tables WHERE author_login = '{author.username}' AND table_type = 1")
+        tables = cursor.fetchall()
+
+        self.buttons = []
+        for i in range(len(tables)):
+            new = QPushButton()
+
+            new.setStyleSheet("""
+                            background-color: rgb(255, 255, 255);
+                            border-radius: 10px;
+                            border-width: 2px 2px 2px 2px;
+                            border-style: solid;
+                            border-color: #6757A5;
+                            font: 600 13px "Work Sans";
+                            """)
+
+            # print(tables[i][1])
+            new.setText(f"{tables[i][1]}")
+            new.setObjectName(f"{tables[i][1]}")
+            new.setFixedWidth(250)
+            new.setFixedHeight(80)
+            self.buttons.append(new)
+
+            scroll_layout.addWidget(new, i // 2, i % 2)
+
+            if i + 1 >= len(tables):
+                scroll_layout.addWidget(empty_widget)
+
+            scroll_widget.setLayout(scroll_layout)
+            self.scroll_area.setWidget(scroll_widget)
+
+        for i, button in enumerate(self.buttons):
+            button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
+
+    def show_where_me_coauthor(self):
+        self.update_as.triggered.connect(self.show_where_me_coauthor)
+
+        self.scroll_area.takeWidget()
+
+        scroll_layout = QGridLayout()
+        scroll_widget = QWidget()
+
+        # виджет-пустышка для добавления в конец, чтобы место занимал
+        empty_widget = QLabel()
+        empty_widget.setFixedSize(100, 10)
+
+        database.commit()
+        author = sign_up_window.curr() if sign_up_window.curr() is not None else log_in_window.curr()
+        cursor.execute(f"SELECT * FROM tables WHERE coauthors_login LIKE '%{author.username}%'")
         tables = cursor.fetchall()
 
         self.buttons = []
