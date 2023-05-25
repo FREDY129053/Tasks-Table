@@ -14,7 +14,7 @@ from PyQt6.uic import loadUi
 from PyQt6.QtCore import QCoreApplication
 from mysql.connector import connect
 
-
+# wqsw
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = log_in_window.logIn()

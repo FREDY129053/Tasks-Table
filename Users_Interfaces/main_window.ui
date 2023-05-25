@@ -52,9 +52,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>-20</y>
+      <y>50</y>
       <width>791</width>
-      <height>561</height>
+      <height>491</height>
      </rect>
     </property>
     <property name="palette">
@@ -169,7 +169,7 @@
        <x>0</x>
        <y>0</y>
        <width>791</width>
-       <height>561</height>
+       <height>491</height>
       </rect>
      </property>
      <widget class="QPushButton" name="add_table_btn">
@@ -217,7 +217,38 @@ font: 600 13px &quot;Work Sans&quot;;</string>
        <string>Table_Name</string>
       </property>
      </widget>
+     <zorder>table_name</zorder>
+     <zorder>add_table_btn</zorder>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Обновить</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>10</y>
+      <width>181</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>GHSGDHSGDHS</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -230,6 +261,13 @@ font: 600 13px &quot;Work Sans&quot;;</string>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
+    <property name="styleSheet">
+     <string notr="true">color: #6757A5;
+background-color: #F5FFFA;
+
+QMenu::item:hover { color: #333333; }
+</string>
+    </property>
     <property name="title">
      <string>Профиль</string>
     </property>
@@ -238,25 +276,19 @@ font: 600 13px &quot;Work Sans&quot;;</string>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
-     <string>Мои доски</string>
+     <string>Доски</string>
     </property>
-    <addaction name="action_3"/>
-    <addaction name="action_4"/>
-   </widget>
-   <widget class="QMenu" name="update">
-    <property name="title">
-     <string>Обновить</string>
-    </property>
-    <addaction name="update_act"/>
+    <addaction name="my_desks"/>
+    <addaction name="my_private_desks"/>
+    <addaction name="me_coauthor"/>
+    <addaction name="public_desks"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
-   <addaction name="update"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="action">
    <property name="text">
-    <string>Изсенить пароль</string>
+    <string>Изменить пароль</string>
    </property>
   </action>
   <action name="action_2">
@@ -264,9 +296,9 @@ font: 600 13px &quot;Work Sans&quot;;</string>
     <string>Изменить логин</string>
    </property>
   </action>
-  <action name="action_3">
+  <action name="my_desks">
    <property name="text">
-    <string>Мои личные доски</string>
+    <string>Мои доски</string>
    </property>
   </action>
   <action name="action_4">
@@ -274,9 +306,38 @@ font: 600 13px &quot;Work Sans&quot;;</string>
     <string>Соавторство в досках</string>
    </property>
   </action>
+  <action name="update_act_2">
+   <property name="icon">
+    <iconset>
+     <normaloff>refreshtwocounterclockwisecirculararrowsinterfacesymbol_79835.svg</normaloff>refreshtwocounterclockwisecirculararrowsinterfacesymbol_79835.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Обновить</string>
+   </property>
+  </action>
   <action name="update_act">
    <property name="text">
     <string>Обновить</string>
+   </property>
+  </action>
+  <action name="actionTest">
+   <property name="text">
+    <string>Test</string>
+   </property>
+  </action>
+  <action name="my_private_desks">
+   <property name="text">
+    <string>Мои приватные доски</string>
+   </property>
+  </action>
+  <action name="me_coauthor">
+   <property name="text">
+    <string>Соавторство в досках</string>
+   </property>
+  </action>
+  <action name="public_desks">
+   <property name="text">
+    <string>Публичные доски</string>
    </property>
   </action>
  </widget>

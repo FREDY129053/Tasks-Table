@@ -14,7 +14,7 @@
    <string>Вход/Регистрация</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">background-color: rgb(245, 245, 245);</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
