@@ -62,7 +62,7 @@ class Main(QMainWindow):
 
         self.update_as = self.findChild(QAction, 'update_act_2')
 
-        self.update_as.triggered.connect(self.update_window)
+        self.pushButton.clicked.connect(self.update_window)
 
 
         btn = self.findChild(QPushButton, 'add_table_btn')
@@ -76,7 +76,16 @@ class Main(QMainWindow):
 
         # def add_tables_buttons(self):
         scroll_layout = QGridLayout()
+
+        # label = QLabel("Публичные доски")
+        # label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label.setText("Публичные доски")
+        # scroll_layout.addWidget(self.label)
+
         scroll_widget = QWidget()
+
+        scroll_widget.setLayout(scroll_layout)
+        self.scroll_area.setWidget(scroll_widget)
 
         # виджет-пустышка для добавления в конец, чтобы место занимал
         empty_widget = QLabel()
@@ -118,7 +127,9 @@ class Main(QMainWindow):
             button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
 
     def update_window(self):
-        self.update_as.triggered.connect(self.update_window)
+        self.pushButton.clicked.connect(self.update_window)
+
+        self.label.setText("Публичные доски")
 
         self.scroll_area.takeWidget()
 
@@ -166,7 +177,9 @@ class Main(QMainWindow):
             button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
 
     def show_my_desks(self):
-        self.update_as.triggered.connect(self.show_my_desks)
+        self.pushButton.clicked.connect(self.show_my_desks)
+
+        self.label.setText("Мои доски")
 
         self.scroll_area.takeWidget()
 
@@ -214,7 +227,9 @@ class Main(QMainWindow):
             button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
 
     def show_my_private_desks(self):
-        self.update_as.triggered.connect(self.show_my_private_desks)
+        self.pushButton.clicked.connect(self.show_my_private_desks)
+
+        self.label.setText("Мои приватные доски")
 
         self.scroll_area.takeWidget()
 
@@ -262,7 +277,9 @@ class Main(QMainWindow):
             button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
 
     def show_where_me_coauthor(self):
-        self.update_as.triggered.connect(self.show_where_me_coauthor)
+        self.pushButton.clicked.connect(self.show_where_me_coauthor)
+
+        self.label.setText("Доски, где я соавтор")
 
         self.scroll_area.takeWidget()
 
