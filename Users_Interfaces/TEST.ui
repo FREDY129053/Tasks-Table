@@ -26,6 +26,9 @@
     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Это редактор добавления записей и столбцов&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -87,7 +90,7 @@ border-color: 0;</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="registration_btn">
+   <widget class="QPushButton" name="add_zapis">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -123,90 +126,45 @@ QPushButton:hover{
      <string>ДОБАВИТЬ</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit">
+   <widget class="QLineEdit" name="name">
     <property name="geometry">
      <rect>
       <x>30</x>
       <y>40</y>
-      <width>351</width>
-      <height>31</height>
+      <width>350</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QTextEdit{
-	background: #E6E4F0;
-	border: 1px solid #8777C5;
-	box-shadow: 0px 1.23485px 12px rgba(0, 0, 0, 0.25);
-	border-radius: 10px;
+     <string notr="true">border: none;
+border-radoius: 2px;
 
-	font-family: 'Work Sans';
-font-style: normal;
-font-weight: 600;
-font-size: 13px;
-line-height: 13px;
-
-
-color: #6353A3;
-}
-
-QTextEdit:focus {
-	border: 1px solid #55439B;
-	background: #F3F2FA;
-}
-
-::placeholder {
- color: red;
-}</string>
+border: 1px solid #333333;</string>
     </property>
-    <property name="html">
-     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Work Sans'; font-size:13px; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400;&quot;&gt;Добавить название&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <property name="placeholderText">
+     <string>Добавить название</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_2">
+   <widget class="QLineEdit" name="text">
     <property name="geometry">
      <rect>
       <x>30</x>
       <y>100</y>
-      <width>351</width>
-      <height>121</height>
+      <width>350</width>
+      <height>120</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QTextEdit{
-	background: #E6E4F0;
-	border: 1px solid #8777C5;
-	box-shadow: 0px 1.23485px 12px rgba(0, 0, 0, 0.25);
-	border-radius: 10px;
+     <string notr="true">border: none;
+border-radoius: 2px;
 
-	font-family: 'Work Sans';
-font-style: normal;
-font-weight: 600;
-font-size: 13px;
-line-height: 13px;
-
-
-color: #6353A3;
-}
-
-QTextEdit:focus {
-	border: 1px solid #55439B;
-	background: #F3F2FA;
-}
-
-::placeholder {
- color: red;
-}</string>
+border: 1px solid #333333;</string>
     </property>
-    <property name="html">
-     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Work Sans'; font-size:13px; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400;&quot;&gt;описание введите(у столбцов не надо этого)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <property name="placeholderText">
+     <string>Описание</string>
     </property>
    </widget>
   </widget>
@@ -237,7 +195,7 @@ border-top-right-radius: 10px;
 border-top-left-radius: 10px;</string>
    </property>
    <property name="text">
-    <string>Редактор столбцов</string>
+    <string>Редактор записей</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
