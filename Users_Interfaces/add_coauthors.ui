@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>473</width>
-    <height>131</height>
+    <height>173</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,21 +16,33 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>151</width>
-     <height>16</height>
+     <x>0</x>
+     <y>10</y>
+     <width>471</width>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 10px;
+font: 400 15pt &quot;Segoe UI&quot;;
+border-left: 2px solid #3C288C;
+border-top: 2px solid #3C288C;
+border-right: 2px solid #3C288C;
+border-bottom: 2px solid #3C288C;
+background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>Соавторы (через запятую)</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLabel" name="status">
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>40</y>
+     <x>150</x>
+     <y>80</y>
      <width>171</width>
      <height>31</height>
     </rect>
@@ -42,8 +54,8 @@
   <widget class="QLineEdit" name="coauthors">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>20</y>
+     <x>100</x>
+     <y>50</y>
      <width>281</width>
      <height>21</height>
     </rect>
@@ -52,11 +64,20 @@
   <widget class="QPushButton" name="add_coauthors_button">
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>80</y>
-     <width>151</width>
+     <x>130</x>
+     <y>130</y>
+     <width>201</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 10px;
+font: 500 14pt &quot;Segoe UI&quot;;
+border-left: 2px solid #3C288C;
+border-top: 2px solid #3C288C;
+border-right: 2px solid #3C288C;
+border-bottom: 2px solid #3C288C;
+background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>Добавить соавторов</string>

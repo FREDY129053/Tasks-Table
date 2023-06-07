@@ -64,7 +64,6 @@ class Main(QMainWindow):
 
         self.pushButton.clicked.connect(self.update_window)
 
-
         btn = self.findChild(QPushButton, 'add_table_btn')
         self.add_table_btn.clicked.connect(self.add_table)
 
@@ -77,10 +76,7 @@ class Main(QMainWindow):
         # def add_tables_buttons(self):
         scroll_layout = QGridLayout()
 
-        # label = QLabel("Публичные доски")
-        # label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.label.setText("Публичные доски")
-        # scroll_layout.addWidget(self.label)
 
         scroll_widget = QWidget()
 
@@ -333,27 +329,6 @@ class Main(QMainWindow):
         self.window = foreach_table_window.EachTable(self.new_window.windowTitle())
 
         self.window.show()
-
-    # заполнение таблицы данными
-    # def load_data(self, table):
-    #     tasks = [{"name": "Посрать", "age": "Покупка туалетки", "address": "Срать"},
-    #              {"name": "Mark", "age": "18", "address": "Alabama"},
-    #              {"name": "Посрать", "age": "Покупка туалетки", "address": ""},
-    #              {"name": "Посрать", "age": "Покупка туалетки", "address": ""},
-    #              {"name": "Посрать", "age": "Покупка туалетки", "address": "Обосраться"},
-    #              {"name": "Посрать", "age": "Покупка туалетки", "address": ""},
-    #              {"name": "Посрать", "age": "Покупка туалетки", "address": "Отложить кучу"},
-    #              {"name": "Посрать", "age": "Покупка туалетки", "address": ""},
-    #              {"name": "Посрать", "age": "Покупка туалетки", "address": ""},
-    #              {"name": "Посрать", "age": "Покупка туалетки", "address": "Надристать"}]
-    #     row = 0
-    #     table.setRowCount(len(tasks))
-    #
-    #     for task in tasks:
-    #         table.setItem(row, 0, QtWidgets.QTableWidgetItem(task["name"]))
-    #         table.setItem(row, 1, QtWidgets.QTableWidgetItem(task["age"]))
-    #         table.setItem(row, 2, QtWidgets.QTableWidgetItem(task["address"]))
-    #         row += 1
 
     def add_table(self):
         self.main = add_table_window.AddTable()
