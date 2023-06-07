@@ -18,10 +18,6 @@ from mysql.connector import connect
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = log_in_window.logIn()
-    # widget = QStackedWidget()
-    # widget.addWidget(window)
-    # widget.setFixedSize(500, 500)
-    # widget.show()
     window.show()
 
     app.exec()

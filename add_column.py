@@ -51,9 +51,9 @@ class AddColumn(QWidget):
         curr_name = "" if curr_name_db is None else curr_name_db
         print(f"As = {curr_name}")
         if curr_name == "":
-            add_to_table = name_column + ', '
+            add_to_table = name_column + ','
         else:
-            add_to_table = curr_name + name_column + ','
+            add_to_table = curr_name + ','+ name_column
         print(add_to_table)
         print(foreach_table_window.curr())
 

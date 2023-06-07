@@ -40,6 +40,7 @@ class AddTable(QWidget):
 
         self.add_table_btn.clicked.connect(self.add_table)
 
+
     def add_back(self):
         global file_path
 
@@ -50,7 +51,6 @@ class AddTable(QWidget):
 
     def add_table(self):
         global is_wrong_coauthor
-
 
         table_name = self.name.text()
         author = sign_up_window.curr() if sign_up_window.curr() is not None else log_in_window.curr()
@@ -74,9 +74,9 @@ class AddTable(QWidget):
         if len(table_name) == 0:
             self.status.setText("Введите название доски")
         elif is_wrong_coauthor is False:
-            # table = other_classes.Table(table_name, author.username, self.coauthors.text(), table_type, size, columns_name)
             coauthors_str = " ".join(coauthors)
-            cursor.execute(f"INSERT INTO tables (table_name, author_login, coauthors_login, table_type, size_of_table, background)"
-                           f"VALUES ('{table_name}', '{author.username}', '{coauthors_str}', '{table_type}', 0, '{file_path}')")
+            # добавить задний фон
+            cursor.execute(f"INSERT INTO tables (table_name, author_login, coauthors_login, table_type, size_of_table)"
+                           f"VALUES ('{table_name}', '{author.username}', '{coauthors_str}', '{table_type}', 0)")
             database.commit()
             self.close()

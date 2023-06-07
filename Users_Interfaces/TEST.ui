@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>484</width>
-    <height>492</height>
+    <width>411</width>
+    <height>361</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,10 +37,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>90</y>
+     <x>0</x>
+     <y>40</y>
      <width>411</width>
-     <height>371</height>
+     <height>321</height>
     </rect>
    </property>
    <property name="autoFillBackground">
@@ -94,7 +94,7 @@ border-color: 0;</string>
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>300</y>
+      <y>260</y>
       <width>341</width>
       <height>41</height>
      </rect>
@@ -136,10 +136,12 @@ QPushButton:hover{
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
+     <string notr="true">QLineEdit {
+border: none;
 border-radoius: 2px;
 
-border: 1px solid #333333;</string>
+border: 1px solid #333333;
+}</string>
     </property>
     <property name="placeholderText">
      <string>Добавить название</string>
@@ -171,8 +173,8 @@ border: 1px solid #333333;</string>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>50</y>
+     <x>0</x>
+     <y>0</y>
      <width>411</width>
      <height>40</height>
     </rect>
@@ -195,7 +197,7 @@ border-top-right-radius: 10px;
 border-top-left-radius: 10px;</string>
    </property>
    <property name="text">
-    <string>Редактор записей</string>
+    <string>Добавление записи</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
