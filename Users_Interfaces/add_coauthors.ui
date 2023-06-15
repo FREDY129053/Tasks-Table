@@ -41,21 +41,24 @@ background-color: rgb(255, 255, 255);</string>
   <widget class="QLabel" name="status">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>80</y>
-     <width>171</width>
+     <x>100</x>
+     <y>86</y>
+     <width>281</width>
      <height>31</height>
     </rect>
    </property>
    <property name="text">
     <string/>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
   </widget>
   <widget class="QLineEdit" name="coauthors">
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>50</y>
+     <y>57</y>
      <width>281</width>
      <height>21</height>
     </rect>
@@ -66,7 +69,7 @@ background-color: rgb(255, 255, 255);</string>
     <rect>
      <x>130</x>
      <y>130</y>
-     <width>201</width>
+     <width>221</width>
      <height>31</height>
     </rect>
    </property>

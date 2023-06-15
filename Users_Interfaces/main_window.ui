@@ -230,6 +230,15 @@ font: 600 13px &quot;Work Sans&quot;;</string>
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 10px;
+font: 600 9pt &quot;Segoe UI&quot;;
+border-left: 2px solid #3C288C;
+border-top: 2px solid #3C288C;
+border-right: 2px solid #3C288C;
+border-bottom: 2px solid #3C288C;
+background-color: rgb(255, 255, 255);</string>
+    </property>
     <property name="text">
      <string>Обновить</string>
     </property>

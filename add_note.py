@@ -26,27 +26,31 @@ db_config = {
     "user": "me",
     "password": "password",
     "host": "193.124.118.138",
-    "database": "task_table",
+    "database": "tasks_table_copy",
 }
 database = mysql.connector.connect(**db_config)
 cursor = database.cursor(buffered=True)
 
 
 class AddNote(QWidget):
-    def __init__(self):
+    def __init__(self, column):
         super(AddNote, self).__init__()
         loadUi("Users_Interfaces/TEST.ui", self)
         self.setWindowTitle("Добавление записи")
 
-        self.add_zapis.clicked.connect(self.add_note)
+        self.add_zapis.clicked.connect(lambda checked, b=column: self.add_note(b))
 
-    def add_note(self):
-        table_id = int(foreach_table_window.current_id())
+    def add_note(self, column):
         name = self.name.text()
         description = self.text.text()
         author = sign_up_window.curr() if sign_up_window.curr() is not None else log_in_window.curr()
 
+        cursor.execute(f"SELECT id FROM users WHERE login = '{author.username}'")
+        author_id = int(cursor.fetchone()[0])
+
+        # bug - column_id передам и по нему надо вставлять
         cursor.execute(
-            f"INSERT INTO columns (table_id, author, name, text, column_id) VALUES({table_id}, '{author.username}', '{name}', '{description}', 1)")
+            f"INSERT INTO tasks (column_id, name, description, author_id) VALUES({column}, '{name}', '{description}', {author_id})")
         database.commit()
+
         self.close()

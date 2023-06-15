@@ -22,54 +22,70 @@ from PyQt6.uic import loadUi
 from PyQt6.QtCore import QCoreApplication
 from mysql.connector import connect
 
+db_config = {
+            "user": "me",
+            "password": "password",
+            "host": "193.124.118.138",
+            "database": "tasks_table_copy",
+        }
+database = mysql.connector.connect(**db_config)
+cursor = database.cursor(buffered=True)
 
 class TempClass(QWidget):
-    def __init__(self, name):
+    def __init__(self, table_id):
         super(TempClass, self).__init__()
         loadUi("Users_Interfaces/add_coauthors.ui", self)
         global window, index_table, name_curr
-        name_curr = name
+        self.table_id = table_id
         window = foreach_table_window.window_for_action()
-        index_table = foreach_table_window.current_id()
+
+        self.add_coauthors_button.setText("Внести корректировки")
 
         if window == 1:
             self.setWindowTitle("Переименовать запись")
+            self.label.setText("Переименовать запись")
         elif window == 2:
             self.setWindowTitle("Изменить описание")
+            self.label.setText("Изменить описание")
         elif window == 3:
             self.setWindowTitle("Изменить автора")
+            self.label.setText("Изменить автора")
 
         self.add_coauthors_button.clicked.connect(self.add_coauthors)
 
 
     def add_coauthors(self):
         global is_wrong_coauthor
-        db_config = {
-            "user": "me",
-            "password": "password",
-            "host": "193.124.118.138",
-            "database": "task_table",
-        }
-        database = mysql.connector.connect(**db_config)
-        cursor = database.cursor(buffered=True)
+
+        ready_to_close = False
 
         coauthors = self.coauthors.text()
-        print(window, coauthors, index_table, name_curr)
 
         # Проверка на наличие введенных соавторов в бд
         if len(coauthors) == 0:
             self.status.setText("Поле пустое!")
         else:
             if window == 1:
-                cursor.execute(f"UPDATE columns SET name = '{coauthors}' WHERE table_id = {index_table} AND name = '{name_curr}'")
+                cursor.execute(f"UPDATE tasks SET name = '{coauthors}' WHERE id = {self.table_id}")
                 database.commit()
+                ready_to_close = True
             elif window == 2:
                 cursor.execute(
-                    f"UPDATE columns SET text = '{coauthors}' WHERE table_id = {index_table} AND name = '{name_curr}'")
+                    f"UPDATE tasks SET description = '{coauthors}' WHERE id = {self.table_id}")
                 database.commit()
+                ready_to_close = True
             elif window == 3:
-                cursor.execute(
-                    f"UPDATE columns SET author = '{coauthors}' WHERE table_id = {index_table} AND name = '{name_curr}'")
-                database.commit()
+                cursor.execute(f"SELECT id  FROM users WHERE login = '{coauthors}'")
+                new_author = int(cursor.fetchone()[0])
 
-        self.close()
+                if new_author is None:
+                    self.status.setText("Нет такого пользователя!")
+                else:
+                    new_author = int(new_author[0])
+                    cursor.execute(
+                        f"UPDATE tasks SET author_id = {new_author} WHERE id = {self.table_id}")
+                    database.commit()
+                    ready_to_close = True
+
+        if ready_to_close:
+            self.close()

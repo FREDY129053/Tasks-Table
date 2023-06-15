@@ -22,7 +22,7 @@ db_config = {
     "user": "me",
     "password": "password",
     "host": "193.124.118.138",
-    "database": "task_table",
+    "database": "tasks_table_copy",
 }
 database = mysql.connector.connect(**db_config)
 cursor = database.cursor(buffered=True)
@@ -88,39 +88,46 @@ class Main(QMainWindow):
         empty_widget.setFixedSize(100, 10)
 
         database.commit()
-        cursor.execute("SELECT * FROM tables WHERE table_type = 0")
+        cursor.execute("SELECT * FROM board WHERE status = 0")
         tables = cursor.fetchall()
-        # print(tables)
 
-        self.buttons = []
-        for i in range(len(tables)):
-            new = QPushButton()
+        if len(tables) == 0:
+            zero_text = QLabel()
+            scroll_layout.addWidget(zero_text, 0, 1)
+            zero_text.move(200, 200)
+            zero_text.setText("Досок нет....Будьте первым!")
+        else:
+            self.buttons = []
+            indexies = []
+            for i in range(len(tables)):
+                new = QPushButton()
 
-            new.setStyleSheet("""
-            background-color: rgb(255, 255, 255);
-            border-radius: 10px;
-            border-width: 2px 2px 2px 2px;
-            border-style: solid;
-            border-color: #6757A5;
-            font: 600 13px "Work Sans";
-            """)
+                new.setStyleSheet("""
+                background-color: rgb(255, 255, 255);
+                border-radius: 10px;
+                border-width: 2px 2px 2px 2px;
+                border-style: solid;
+                border-color: #6757A5;
+                font: 600 13px "Work Sans";
+                """)
 
-            new.setText(f"{tables[i][1]}")
-            new.setObjectName(f"{tables[i][1]}")
-            new.setFixedWidth(250)
-            new.setFixedHeight(80)
-            self.buttons.append(new)
+                new.setText(f"{tables[i][1]}")
+                new.setObjectName(f"{tables[i][1]}")
+                new.setFixedWidth(250)
+                new.setFixedHeight(80)
+                self.buttons.append(new)
+                indexies.append(tables[i][0])
 
-            scroll_layout.addWidget(new, i // 2, i % 2)
+                scroll_layout.addWidget(new, i // 2, i % 2)
 
-            if i + 1 >= len(tables):
-                scroll_layout.addWidget(empty_widget)
+                if i + 1 >= len(tables):
+                    scroll_layout.addWidget(empty_widget)
 
-            scroll_widget.setLayout(scroll_layout)
-            self.scroll_area.setWidget(scroll_widget)
+                scroll_widget.setLayout(scroll_layout)
+                self.scroll_area.setWidget(scroll_widget)
 
-        for i, button in enumerate(self.buttons):
-            button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
+            for i, button in enumerate(self.buttons):
+                button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index], indexies[index]))
 
     def update_window(self):
         self.pushButton.clicked.connect(self.update_window)
@@ -137,40 +144,46 @@ class Main(QMainWindow):
         empty_widget.setFixedSize(100, 10)
 
         database.commit()
-        cursor.execute("SELECT * FROM tables WHERE table_type = 0")
+        cursor.execute("SELECT * FROM board WHERE status = 0")
         tables = cursor.fetchall()
-        # print(tables)
 
-        self.buttons = []
-        for i in range(len(tables)):
-            new = QPushButton()
+        if len(tables) == 0:
+            zero_text = QLabel()
+            scroll_layout.addWidget(zero_text, 0, 1)
+            zero_text.move(200, 200)
+            zero_text.setText("Досок нет....Будьте первым!")
+        else:
+            self.buttons = []
+            indexies = []
+            for i in range(len(tables)):
+                new = QPushButton()
 
-            new.setStyleSheet("""
-                    background-color: rgb(255, 255, 255);
-                    border-radius: 10px;
-                    border-width: 2px 2px 2px 2px;
-                    border-style: solid;
-                    border-color: #6757A5;
-                    font: 600 13px "Work Sans";
-                    """)
+                new.setStyleSheet("""
+                background-color: rgb(255, 255, 255);
+                border-radius: 10px;
+                border-width: 2px 2px 2px 2px;
+                border-style: solid;
+                border-color: #6757A5;
+                font: 600 13px "Work Sans";
+                """)
 
-            # print(tables[i][1])
-            new.setText(f"{tables[i][1]}")
-            new.setObjectName(f"{tables[i][1]}")
-            new.setFixedWidth(250)
-            new.setFixedHeight(80)
-            self.buttons.append(new)
+                new.setText(f"{tables[i][1]}")
+                new.setObjectName(f"{tables[i][1]}")
+                new.setFixedWidth(250)
+                new.setFixedHeight(80)
+                self.buttons.append(new)
+                indexies.append(tables[i][0])
 
-            scroll_layout.addWidget(new, i // 2, i % 2)
+                scroll_layout.addWidget(new, i // 2, i % 2)
 
-            if i + 1 >= len(tables):
-                scroll_layout.addWidget(empty_widget)
+                if i + 1 >= len(tables):
+                    scroll_layout.addWidget(empty_widget)
 
-            scroll_widget.setLayout(scroll_layout)
-            self.scroll_area.setWidget(scroll_widget)
+                scroll_widget.setLayout(scroll_layout)
+                self.scroll_area.setWidget(scroll_widget)
 
-        for i, button in enumerate(self.buttons):
-            button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
+            for i, button in enumerate(self.buttons):
+                button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index], indexies[index]))
 
     def show_my_desks(self):
         self.pushButton.clicked.connect(self.show_my_desks)
@@ -186,41 +199,50 @@ class Main(QMainWindow):
         empty_widget = QLabel()
         empty_widget.setFixedSize(100, 10)
 
-        database.commit()
         author = sign_up_window.curr() if sign_up_window.curr() is not None else log_in_window.curr()
-        cursor.execute(f"SELECT * FROM tables WHERE author_login = '{author.username}'")
+
+        cursor.execute(f"SELECT id  FROM users WHERE login = '{author.username}'")
+        new_author = int(cursor.fetchone()[0])
+        cursor.execute(f"SELECT * FROM board WHERE author_id = {new_author}")
         tables = cursor.fetchall()
 
-        self.buttons = []
-        for i in range(len(tables)):
-            new = QPushButton()
+        if len(tables) == 0:
+            zero_text = QLabel()
+            scroll_layout.addWidget(zero_text, 0, 1)
+            zero_text.move(200, 200)
+            zero_text.setText("Досок нет....Будьте первым!")
+        else:
+            self.buttons = []
+            indexies = []
+            for i in range(len(tables)):
+                new = QPushButton()
 
-            new.setStyleSheet("""
-                            background-color: rgb(255, 255, 255);
-                            border-radius: 10px;
-                            border-width: 2px 2px 2px 2px;
-                            border-style: solid;
-                            border-color: #6757A5;
-                            font: 600 13px "Work Sans";
-                            """)
+                new.setStyleSheet("""
+                background-color: rgb(255, 255, 255);
+                border-radius: 10px;
+                border-width: 2px 2px 2px 2px;
+                border-style: solid;
+                border-color: #6757A5;
+                font: 600 13px "Work Sans";
+                """)
 
-            # print(tables[i][1])
-            new.setText(f"{tables[i][1]}")
-            new.setObjectName(f"{tables[i][1]}")
-            new.setFixedWidth(250)
-            new.setFixedHeight(80)
-            self.buttons.append(new)
+                new.setText(f"{tables[i][1]}")
+                new.setObjectName(f"{tables[i][1]}")
+                new.setFixedWidth(250)
+                new.setFixedHeight(80)
+                self.buttons.append(new)
+                indexies.append(tables[i][0])
 
-            scroll_layout.addWidget(new, i // 2, i % 2)
+                scroll_layout.addWidget(new, i // 2, i % 2)
 
-            if i + 1 >= len(tables):
-                scroll_layout.addWidget(empty_widget)
+                if i + 1 >= len(tables):
+                    scroll_layout.addWidget(empty_widget)
 
-            scroll_widget.setLayout(scroll_layout)
-            self.scroll_area.setWidget(scroll_widget)
+                scroll_widget.setLayout(scroll_layout)
+                self.scroll_area.setWidget(scroll_widget)
 
-        for i, button in enumerate(self.buttons):
-            button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
+            for i, button in enumerate(self.buttons):
+                button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index], indexies[index]))
 
     def show_my_private_desks(self):
         self.pushButton.clicked.connect(self.show_my_private_desks)
@@ -236,41 +258,49 @@ class Main(QMainWindow):
         empty_widget = QLabel()
         empty_widget.setFixedSize(100, 10)
 
-        database.commit()
         author = sign_up_window.curr() if sign_up_window.curr() is not None else log_in_window.curr()
-        cursor.execute(f"SELECT * FROM tables WHERE author_login = '{author.username}' AND table_type = 1")
+        cursor.execute(f"SELECT id  FROM users WHERE login = '{author.username}'")
+        new_author = int(cursor.fetchone()[0])
+        cursor.execute(f"SELECT * FROM board WHERE author_id = {new_author} AND status = 1")
         tables = cursor.fetchall()
 
-        self.buttons = []
-        for i in range(len(tables)):
-            new = QPushButton()
+        if len(tables) == 0:
+            zero_text = QLabel()
+            scroll_layout.addWidget(zero_text, 0, 1)
+            zero_text.move(200, 200)
+            zero_text.setText("Досок нет....Будьте первым!")
+        else:
+            self.buttons = []
+            indexies = []
+            for i in range(len(tables)):
+                new = QPushButton()
 
-            new.setStyleSheet("""
-                            background-color: rgb(255, 255, 255);
-                            border-radius: 10px;
-                            border-width: 2px 2px 2px 2px;
-                            border-style: solid;
-                            border-color: #6757A5;
-                            font: 600 13px "Work Sans";
-                            """)
+                new.setStyleSheet("""
+                background-color: rgb(255, 255, 255);
+                border-radius: 10px;
+                border-width: 2px 2px 2px 2px;
+                border-style: solid;
+                border-color: #6757A5;
+                font: 600 13px "Work Sans";
+                """)
 
-            # print(tables[i][1])
-            new.setText(f"{tables[i][1]}")
-            new.setObjectName(f"{tables[i][1]}")
-            new.setFixedWidth(250)
-            new.setFixedHeight(80)
-            self.buttons.append(new)
+                new.setText(f"{tables[i][1]}")
+                new.setObjectName(f"{tables[i][1]}")
+                new.setFixedWidth(250)
+                new.setFixedHeight(80)
+                self.buttons.append(new)
+                indexies.append(tables[i][0])
 
-            scroll_layout.addWidget(new, i // 2, i % 2)
+                scroll_layout.addWidget(new, i // 2, i % 2)
 
-            if i + 1 >= len(tables):
-                scroll_layout.addWidget(empty_widget)
+                if i + 1 >= len(tables):
+                    scroll_layout.addWidget(empty_widget)
 
-            scroll_widget.setLayout(scroll_layout)
-            self.scroll_area.setWidget(scroll_widget)
+                scroll_widget.setLayout(scroll_layout)
+                self.scroll_area.setWidget(scroll_widget)
 
-        for i, button in enumerate(self.buttons):
-            button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
+            for i, button in enumerate(self.buttons):
+                button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index], indexies[index]))
 
     def show_where_me_coauthor(self):
         self.pushButton.clicked.connect(self.show_where_me_coauthor)
@@ -288,45 +318,53 @@ class Main(QMainWindow):
 
         database.commit()
         author = sign_up_window.curr() if sign_up_window.curr() is not None else log_in_window.curr()
-        cursor.execute(f"SELECT * FROM tables WHERE coauthors_login LIKE '%{author.username}%'")
+        cursor.execute(f"SELECT id  FROM users WHERE login = '{author.username}'")
+        new_author = int(cursor.fetchone()[0])
+        cursor.execute(f"SELECT board.* FROM board JOIN coauthors ON board.id = coauthors.table_id WHERE coauthors.user_id = {new_author}")
         tables = cursor.fetchall()
 
-        self.buttons = []
-        for i in range(len(tables)):
-            new = QPushButton()
+        if len(tables) == 0:
+            zero_text = QLabel()
+            scroll_layout.addWidget(zero_text, 0, 1)
+            zero_text.move(200, 200)
+            zero_text.setText("Досок нет....Будьте первым!")
+        else:
+            self.buttons = []
+            indexies = []
+            for i in range(len(tables)):
+                new = QPushButton()
 
-            new.setStyleSheet("""
-                            background-color: rgb(255, 255, 255);
-                            border-radius: 10px;
-                            border-width: 2px 2px 2px 2px;
-                            border-style: solid;
-                            border-color: #6757A5;
-                            font: 600 13px "Work Sans";
-                            """)
+                new.setStyleSheet("""
+                background-color: rgb(255, 255, 255);
+                border-radius: 10px;
+                border-width: 2px 2px 2px 2px;
+                border-style: solid;
+                border-color: #6757A5;
+                font: 600 13px "Work Sans";
+                """)
 
-            # print(tables[i][1])
-            new.setText(f"{tables[i][1]}")
-            new.setObjectName(f"{tables[i][1]}")
-            new.setFixedWidth(250)
-            new.setFixedHeight(80)
-            self.buttons.append(new)
+                new.setText(f"{tables[i][1]}")
+                new.setObjectName(f"{tables[i][1]}")
+                new.setFixedWidth(250)
+                new.setFixedHeight(80)
+                self.buttons.append(new)
+                indexies.append(tables[i][0])
 
-            scroll_layout.addWidget(new, i // 2, i % 2)
+                scroll_layout.addWidget(new, i // 2, i % 2)
 
-            if i + 1 >= len(tables):
-                scroll_layout.addWidget(empty_widget)
+                if i + 1 >= len(tables):
+                    scroll_layout.addWidget(empty_widget)
 
-            scroll_widget.setLayout(scroll_layout)
-            self.scroll_area.setWidget(scroll_widget)
+                scroll_widget.setLayout(scroll_layout)
+                self.scroll_area.setWidget(scroll_widget)
 
-        for i, button in enumerate(self.buttons):
-            button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index]))
+            for i, button in enumerate(self.buttons):
+                button.clicked.connect(lambda _, index=i: self.show_window(self.buttons[index], indexies[index]))
 
-    def show_window(self, title):
+    def show_window(self, title, table_id):
         self.new_window = QWidget()
-
         self.new_window.setWindowTitle(f"{title.sender().objectName()}")
-        self.window = foreach_table_window.EachTable(self.new_window.windowTitle())
+        self.window = foreach_table_window.EachTable(self.new_window.windowTitle(), table_id)
 
         self.window.show()
 
