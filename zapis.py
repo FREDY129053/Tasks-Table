@@ -30,24 +30,25 @@ db_config = {
     "user": "me",
     "password": "password",
     "host": "193.124.118.138",
-    "database": "task_table",
+    "database": "tasks_table_copy",
 }
 database = mysql.connector.connect(**db_config)
 cursor = database.cursor(buffered=True)
 
 
 class EachNote(QWidget):
-    def __init__(self, window_title):
+    def __init__(self, zapis_id):
         super(EachNote, self).__init__()
         loadUi("Users_Interfaces/note.ui", self)
-        self.setWindowTitle(window_title)
-        print("\nOk")
 
-        cursor.execute(f"SELECT author, text FROM columns WHERE name = '{window_title}'")
-        info_from_db = cursor.fetchall()[0]
-        print(info_from_db)
+        cursor.execute(f"SELECT * FROM tasks WHERE id = {zapis_id}")
 
-        author, description = info_from_db
+        index, column_id, title, description, author_id = cursor.fetchall()[0]
+
+        self.setWindowTitle(title)
+
+        cursor.execute(f"SELECT login FROM users WHERE id = {author_id}")
+        author = cursor.fetchone()[0]
 
         self.author.setText(author)
         self.author_2.setText(self.windowTitle())

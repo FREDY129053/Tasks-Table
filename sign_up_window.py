@@ -17,6 +17,15 @@ from PyQt6.uic import loadUi
 from PyQt6.QtCore import QCoreApplication
 from mysql.connector import connect
 
+db_config = {
+            "user": "me",
+            "password": "password",
+            "host": "193.124.118.138",
+            "database": "tasks_table_copy",
+            }
+database = mysql.connector.connect(**db_config)
+cursor = database.cursor(buffered=True)
+
 current_user = None
 class signUp(QDialog):
     def __init__(self):
@@ -66,14 +75,7 @@ class signUp(QDialog):
         #     self.status.setText("Заполните все поля!")
         if (count_of_numbers > 0 or count_of_spec_symbols > 0) and len(password) >= 4:
             if compare_digest(password, confirm_password):
-                db_config = {
-                    "user": "me",
-                    "password": "password",
-                    "host": "193.124.118.138",
-                    "database": "task_table",
-                }
-                database = mysql.connector.connect(**db_config)
-                cursor = database.cursor(buffered=True)
+
 
                 cursor.execute(f"SELECT * FROM users WHERE login='{username}'")
                 info = cursor.fetchall()

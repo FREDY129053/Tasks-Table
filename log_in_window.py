@@ -18,6 +18,15 @@ from PyQt6.QtCore import QCoreApplication
 from mysql.connector import connect
 
 
+db_config = {
+            "user": "me",
+            "password": "password",
+            "host": "193.124.118.138",
+            "database": "tasks_table_copy",
+        }
+database = mysql.connector.connect(**db_config)
+cursor = database.cursor(buffered=True)
+
 class logIn(QDialog):
     def __init__(self):
         super(logIn, self).__init__()
@@ -41,27 +50,20 @@ class logIn(QDialog):
         self.signUp.show()
 
     def log_in(self):
+        self.status.setText("")
+
         username = self.username.text()
         password = self.password.text()
         global current_user
-
-        db_config = {
-            "user": "me",
-            "password": "password",
-            "host": "193.124.118.138",
-            "database": "task_table",
-        }
-        database = mysql.connector.connect(**db_config)
-        cursor = database.cursor(buffered=True)
 
         cursor.execute(f"SELECT * FROM users WHERE login='{username}'")
         user_info = cursor.fetchall()
 
         if len(user_info) == 0:
-            self.status.setText("No such user!")
+            self.status.setText("Неверный логин или пароль!")
         else:
-            if password != user_info[0][1]:
-                self.status.setText("Wrong password!")
+            if password != user_info[0][2]:
+                self.status.setText("Неверный логин или пароль!")
             else:
                 self.close()
 

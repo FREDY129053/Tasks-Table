@@ -22,49 +22,50 @@ from PyQt6.uic import loadUi
 from PyQt6.QtCore import QCoreApplication
 from mysql.connector import connect
 
+db_config = {
+    "user": "me",
+    "password": "password",
+    "host": "193.124.118.138",
+    "database": "tasks_table_copy",
+}
+database = mysql.connector.connect(**db_config)
+cursor = database.cursor(buffered=True)
 
 class AddCoauthors(QWidget):
-    def __init__(self):
+    def __init__(self, table_id):
         super(AddCoauthors, self).__init__()
         loadUi("Users_Interfaces/add_coauthors.ui", self)
         self.setWindowTitle("Добавление соавторов")
-
+        self.table_id = table_id
         self.add_coauthors_button.clicked.connect(self.add_coauthors)
 
     def add_coauthors(self):
         global is_wrong_coauthor
-        db_config = {
-            "user": "me",
-            "password": "password",
-            "host": "193.124.118.138",
-            "database": "task_table",
-        }
-        database = mysql.connector.connect(**db_config)
-        cursor = database.cursor(buffered=True)
 
         coauthors = self.coauthors.text().split(', ')
+        is_wrong_coauthor = True
 
         # Проверка на наличие введенных соавторов в бд
         if len(coauthors) == 0:
             pass
-        else:
-            is_wrong_coauthor = False
+        elif len(coauthors) != 0 and is_wrong_coauthor:
             for i in coauthors:
                 cursor.execute(f"SELECT * FROM users WHERE login='{i}'")
                 user_info = cursor.fetchall()
+                print(user_info)
                 if len(user_info) == 0:
                     self.status.setText(f"Пользователь \"{i}\" не найден")
                     is_wrong_coauthor = True
+                else:
+                    is_wrong_coauthor = False
 
         if is_wrong_coauthor is False:
-            # table = other_classes.Table(table_name, author.username, self.coauthors.text(), table_type, size, columns_name)
-            cursor.execute(f"SELECT coauthors_login FROM tables WHERE table_name = '{foreach_table_window.curr()}'")
-            user_info = cursor.fetchall()
-            user_info_str = ""
-            for i in user_info:
-                user_info_str = " ".join(i)
-            coauthors_str = user_info_str + " " + " ".join(coauthors)
-            cursor.execute(f"UPDATE tables SET coauthors_login = '{coauthors_str}' "
-                           f"WHERE table_name = '{foreach_table_window.curr()}'")
-            database.commit()
+            for i in coauthors:
+                cursor.execute(f"SELECT * FROM users WHERE login = '{i}'")
+                user_id = cursor.fetchone()[0]
+                print(f"Us = {user_id}")
+                print(f"Tab = {self.table_id}")
+                cursor.execute(f"INSERT INTO coauthors (user_id, table_id) VALUES({user_id}, {self.table_id})")
+                database.commit()
+
             self.close()

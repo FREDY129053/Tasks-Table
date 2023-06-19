@@ -76,7 +76,7 @@ border-color: qlineargradient( x1:0, y1:0, x2:1, y2:0, stop:0 #3C288C, stop:1 #6
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>250</y>
+      <y>194</y>
       <width>341</width>
       <height>31</height>
      </rect>
@@ -189,62 +189,11 @@ QLineEdit:focus {
      <string>Добавить название</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="coauthors">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>100</y>
-      <width>350</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Work Sans</family>
-      <pointsize>-1</pointsize>
-      <italic>false</italic>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>IBeamCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLineEdit{
-	background: #E6E4F0;
-	border: 1px solid #8777C5;
-	box-shadow: 0px 1.23485px 12px rgba(0, 0, 0, 0.25);
-	border-radius: 10px;
-
-	font-family: 'Work Sans';
-font-style: normal;
-font-weight: 600;
-font-size: 13px;
-line-height: 13px;
-
-
-color: #6353A3;
-}
-
-QLineEdit:focus {
-	border: 1px solid #55439B;
-	background: #F3F2FA;
-}
-
-::placeholder {
- color: red;
-}
-</string>
-    </property>
-    <property name="placeholderText">
-     <string>Добавить соавторов</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>190</y>
+      <y>150</y>
       <width>151</width>
       <height>31</height>
      </rect>
@@ -269,7 +218,7 @@ border: none;</string>
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>190</y>
+      <y>154</y>
       <width>101</width>
       <height>24</height>
      </rect>
@@ -286,7 +235,7 @@ border: none;</string>
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>229</y>
+     <y>175</y>
      <width>31</width>
      <height>31</height>
     </rect>
@@ -305,7 +254,7 @@ border: none;</string>
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>230</y>
+     <y>175</y>
      <width>81</width>
      <height>31</height>
     </rect>
